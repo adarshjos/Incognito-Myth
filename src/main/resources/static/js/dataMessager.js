@@ -35,7 +35,7 @@ function sendFPUserData(){
     let searchQuery=document.getElementById('searchQuery').value;
     let reqData={
         name:searchQuery,
-        fingerprint:transferData.fingerPrint
+        fingerprint:transferData.fingerprint
     };
     stompClient.send("/app/insertFP", {}, JSON.stringify(reqData));
     window.location.href = `https://www.google.co.in/search?q=${reqData.name}`;
@@ -51,7 +51,7 @@ console.log('hello all dataTransfer.js calling...')
 
 let fingerprint=constructFingerPrint();
 console.log(fingerprint);
-let transferData={'fingerPrint':fingerprint}
+let transferData={'fingerprint':fingerprint}
 let k=createConnection(transferData);
 console.log('get ready for fingerprint');
 

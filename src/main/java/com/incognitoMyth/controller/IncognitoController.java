@@ -33,7 +33,7 @@ public class IncognitoController {
         log.log(Level.SEVERE,"FingerPrint Received':::"+transferData.toString());
         BrowserTabDTO browserTabDTO=new BrowserTabDTO();
         JSONObject dataObj=new JSONObject(transferData);
-        String fp=dataObj.getString("fingerPrint");
+        String fp=dataObj.getString("fingerprint");
         try{
             boolean fpExists=browserTabRepository.existsById(fp);
             if(fpExists){
@@ -75,10 +75,11 @@ public class IncognitoController {
     @Transactional
     @MessageMapping("/forgetFP")
     public void forgetFP(String data) throws Exception {
-        log.log(Level.SEVERE,"Message:::"+data);
+        log.log(Level.SEVERE,"Deletion Came:::"+data);
         JSONObject dbObj=new JSONObject(data);
         if(dbObj.has("fingerprint")){
             try{
+                log.log(Level.SEVERE,dbObj.getString("fingerprint"));
                 browserTabRepository.deleteById(dbObj.getString("fingerprint"));
             }catch(Exception e){
                 log.log(Level.SEVERE,"Exception Message ::"+e);
