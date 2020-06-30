@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Incognito Myth</title>
+    <style>
+
+        .header {
+            overflow: hidden;
+            padding: 20px 10px;
+            margin: -25px 5px;
+            color:white;
+        }
+        #endNote {
+            position: fixed;
+            bottom: 5%;
+            width: 10%;
+            height: 5vh;
+            font-size: 18px;
+        }
+
+        #contentFooter{
+            padding-top: 7px;
+        }
+        body,html {
+            background-image: url('bg.jpg');
+            font-family: Rockwell Extra Bold,Rockwell Bold,monospace;
+            height: 100%;
+            background-position: 50% 0%;
+            color:white;
+        }
+
+        #profile-img {
+            height:150px;
+            vertical-align:text-top;
+        }
+        .google-search
+        {
+            padding: 20px 50px;
+        }
+        .google-search:focus
+        {
+            box-shadow:silver 0 2px 10px;
+            border-color: silver;
+        }
+        .google-form .btn-group
+        {
+            padding: 50px 50px;
+        }
+        .btn-group>.btn
+        {
+            border-radius: 0;
+            margin: 0 10px;
+        }
+        .btn
+        {
+            background-color: #f2f2f2;
+            color: #757575;
+            font-weight: 900;
+        }
+        #view1{
+            display: none;
+        }
+        #view2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img id="profile-img" class="rounded-circle profile-img-card" src="https://i.imgur.com/6b6psnA.png" />
+    <div class="header">
+        <h3>Incognito Myth</h3>
+    </div>
+</div>
+
+
+<div id="view1"  class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <div class="row google-form text-center">
+                    <div class="form-group">
+                        <input type="text" class="form-control google-search" id="searchQuery" name="searchQuery">
+                        <div class="btn-group">
+                            <button type="submit" id="submitBTN" onclick="sendFPUserData()" class="btn btn-default">Google Search</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="view2" style="margin-top: 20px;" class="container">
+    <div>
+        <h4 class="center">I remember, you searched for <b>"<span id="history"></span>"</b> last time</h4>
+    </div>
+
+</div>
+<footer id="endNote" class="grey darken-1">
+        <div class="container grey-text text-lighten-4" id="contentFooter">
+            Product Developer:
+            <a class="grey-text text-lighten-4 right" href="https://github.com/adarshjos">
+                <i class="fa fa-github grey-text text-lighten-4"> Adarsh Joseph</i>
+            </a>
+        </div>
+</footer>
+<script src="js/client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="dataMessager.js"></script>
+</body>
+</html>
