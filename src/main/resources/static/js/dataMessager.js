@@ -8,12 +8,10 @@ function constructFingerPrint(){
     return client.getFingerprint();
 }
 function createConnection(transferData){
-    console.log('Adarsh Joseph');
     let socket = new SockJS('/icognitoMyth');
     stompClient = Stomp.over(socket);
     console.log('Connection Creation');
     stompClient.connect({}, (frame)=> {
-        console.log('Bye all:');
         stompClient.subscribe("/app/fp/initFP/"+JSON.stringify(transferData), (responseData)=> {
             let responseObj=JSON.parse(responseData.body);
             console.log('status'+responseObj.status);
@@ -47,12 +45,10 @@ function forgetFPUserData(){
     location.reload();
 }
 
-console.log('hello all dataTransfer.js calling...')
 
 let fingerprint=constructFingerPrint();
 console.log(fingerprint);
 let transferData={'fingerprint':fingerprint}
 let k=createConnection(transferData);
-console.log('get ready for fingerprint');
 
 

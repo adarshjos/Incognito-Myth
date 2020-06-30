@@ -1,7 +1,6 @@
 package com.incognitoMyth.controller;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.incognitoMyth.model.DTO.BrowserTabDTO;
 import com.incognitoMyth.model.entites.BrowserTabEntity;
 import com.incognitoMyth.repositories.BrowserTabRepository;
@@ -9,7 +8,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
@@ -30,9 +28,12 @@ public class IncognitoController {
 
     @SubscribeMapping("/fp/initFP/{fingerPrint}")
     public BrowserTabDTO initFP(@DestinationVariable("fingerPrint") String transferData) throws Exception {
-        log.log(Level.SEVERE,"FingerPrint Received':::"+transferData.toString());
+        log.log(Level.INFO,"FingerPrint Received':::"+transferData.toString());
         BrowserTabDTO browserTabDTO=new BrowserTabDTO();
         JSONObject dataObj=new JSONObject(transferData);
+        if(!dataObj.has("fingerprint")){
+            throw new Exception("JSON key missing");
+        }
         String fp=dataObj.getString("fingerprint");
         try{
             boolean fpExists=browserTabRepository.existsById(fp);
@@ -49,8 +50,8 @@ public class IncognitoController {
         }catch(Exception e){
             browserTabDTO.setStatus("NOT FOUND");
             browserTabDTO.setFingerprint(fp);
+            log.log(Level.SEVERE,"Exception while DB fetching::");
         }
-        log.log(Level.SEVERE,browserTabDTO.getFingerprint()+"--"+browserTabDTO.getStatus());
         return browserTabDTO;
     }
 
@@ -75,17 +76,14 @@ public class IncognitoController {
     @Transactional
     @MessageMapping("/forgetFP")
     public void forgetFP(String data) throws Exception {
-        log.log(Level.SEVERE,"Deletion Came:::"+data);
+        log.log(Level.INFO,"Forgetting FP:::"+data);
         JSONObject dbObj=new JSONObject(data);
         if(dbObj.has("fingerprint")){
             try{
-                log.log(Level.SEVERE,dbObj.getString("fingerprint"));
                 browserTabRepository.deleteById(dbObj.getString("fingerprint"));
             }catch(Exception e){
                 log.log(Level.SEVERE,"Exception Message ::"+e);
             }
-
         }
     }
-
 }
