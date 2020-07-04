@@ -52,9 +52,7 @@ public class IncognitoService {
     @Transactional
     public void populateDB(JSONObject dbObj) throws Exception {
         if(dbObj.has("fingerprint")&&dbObj.has("name")){
-            BrowserTabEntity browserTabEntity=new BrowserTabEntity();
-            browserTabEntity.setName(dbObj.getString("name"));
-            browserTabEntity.setFingerprint(dbObj.getString("fingerprint"));
+            BrowserTabEntity browserTabEntity=new BrowserTabEntity(dbObj.getString("fingerprint"),dbObj.getString("name"));
             try{
                 browserTabRepository.save(browserTabEntity);
             }catch(Exception e){
