@@ -2,8 +2,6 @@ package com.incognitoMyth.controller;
 
 
 import com.incognitoMyth.model.DTO.BrowserTabDTO;
-import com.incognitoMyth.model.entites.BrowserTabEntity;
-import com.incognitoMyth.repositories.BrowserTabRepository;
 import com.incognitoMyth.service.IncognitoService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

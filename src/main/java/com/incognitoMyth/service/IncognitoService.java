@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class IncognitoService {
@@ -30,21 +34,20 @@ public class IncognitoService {
         BrowserTabDTO browserTabDTO=new BrowserTabDTO();
         String fp=dataObj.getString("fingerprint");
         try{
-            boolean fpExists=browserTabRepository.existsById(fp);
-            if(fpExists){
-                BrowserTabEntity browserTabEntity=browserTabRepository.findById(fp).get();
-                browserTabDTO.setFingerprint(browserTabEntity.getFingerprint());
-                browserTabDTO.setName(browserTabEntity.getName());
+            List<BrowserTabEntity> browserTabEntities=browserTabRepository.getBrowserTabEntitiesByFingerprintEquals(fp);
+            if(!browserTabEntities.isEmpty()){
+                List<String>ret=new LinkedList<>();
+                browserTabEntities.stream().map(BrowserTabEntity::getName).forEach(ret::add);
+                browserTabDTO.setQueries(ret);
                 browserTabDTO.setStatus("FOUND");
             }else{
                 browserTabDTO.setStatus("NOT FOUND");
-                browserTabDTO.setFingerprint(fp);
             }
-        }catch(Exception e){
-            browserTabDTO.setStatus("NOT FOUND");
-            browserTabDTO.setFingerprint(fp);
-            log.log(Level.SEVERE,"Exception while DB fetching::");
-        }
+            }catch(Exception e){
+                browserTabDTO.setStatus("NOT FOUND");
+                browserTabDTO.setFingerprint(fp);
+                log.log(Level.SEVERE,"Exception while DB fetching::");
+            }
         return browserTabDTO;
     }
 
@@ -65,7 +68,7 @@ public class IncognitoService {
     public void deleteEntry(JSONObject dbObj) {
         if(dbObj.has("fingerprint")){
             try{
-                browserTabRepository.deleteById(dbObj.getString("fingerprint"));
+                browserTabRepository.deleteBrowserTabEntityByFingerprintEquals(dbObj.getString("fingerprint"));
             }catch(Exception e){
                 log.log(Level.SEVERE,"Exception Message ::"+e);
             }
