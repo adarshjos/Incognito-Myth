@@ -1,8 +1,11 @@
 package com.incognitoMyth.model.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BrowserTabDTO {
     private String fingerprint;
-    private String name;
+    private List<String> queries;
     private String status;
 
     public BrowserTabDTO() {
@@ -24,11 +27,11 @@ public class BrowserTabDTO {
         this.fingerprint = fingerprint;
     }
 
-    public String getName() {
-        return name;
+    public List<String> getQueries() {
+        return queries;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQueries(List<String> queries) {
+        this.queries = queries;
     }
 }
