@@ -15,7 +15,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     private static final Logger log= Logger.getLogger(WebSocketConfig.class.getName());
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/icognitoMyth").withSockJS();
+        registry.addEndpoint("/incognitoMyth").withSockJS();
         log.log(Level.SEVERE,"registerStompEndpoints executed");
     }
 

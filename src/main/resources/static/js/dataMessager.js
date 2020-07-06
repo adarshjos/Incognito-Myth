@@ -8,7 +8,7 @@ function constructFingerPrint(){
     return client.getFingerprint();
 }
 function createConnection(transferData){
-    let socket = new SockJS('/icognitoMyth');
+    let socket = new SockJS('/incogngit itoMyth');
     stompClient = Stomp.over(socket);
     console.log('Connection Creation');
     stompClient.connect({}, (frame)=> {
