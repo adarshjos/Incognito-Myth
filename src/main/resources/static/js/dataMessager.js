@@ -7,8 +7,10 @@ function constructFingerPrint(){
     let client=new ClientJS();
     return client.getFingerprint();
 }
+
+
 function createConnection(transferData){
-    let socket = new SockJS('/incogngit itoMyth');
+    let socket = new SockJS('/incognitoMyth');
     stompClient = Stomp.over(socket);
     console.log('Connection Creation');
     stompClient.connect({}, (frame)=> {
@@ -17,14 +19,15 @@ function createConnection(transferData){
             console.log('status'+responseObj.status);
             if(responseObj.status==='FOUND'){
                 console.log('AssHole this is tracked');
-                history.innerHTML=responseObj.name;
-                view1.style.display='none';
-                view2.style.display='block';
+                console.log(responseObj['queries']);
+                // history.innerHTML=responseObj.name;
+                // view1.style.display='none';
+                // view2.style.display='block';
 
             }else{
                 console.log('Good Boy this is nottracked');
-                view1.style.display = 'block';
-                view2.style.display='none';
+                // view1.style.display = 'block';
+                // view2.style.display='none';
             }
         });
     });
