@@ -1,5 +1,5 @@
 let stompClient=null;
-let view1=document.getElementById('view1');
+let searchScreen=document.getElementById('searchScreen');
 let view2=document.getElementById('view2');
 let history=document.getElementById('history');
 function constructFingerPrint(){
@@ -20,13 +20,14 @@ function createConnection(transferData){
             if(responseObj.status==='FOUND'){
                 console.log('AssHole this is tracked');
                 console.log(responseObj['queries']);
+                populate_list(responseObj);
                 // history.innerHTML=responseObj.name;
                 // view1.style.display='none';
                 // view2.style.display='block';
-
+                searchScreen.style.display = 'block';
             }else{
                 console.log('Good Boy this is nottracked');
-                // view1.style.display = 'block';
+
                 // view2.style.display='none';
             }
         });
@@ -48,6 +49,22 @@ function forgetFPUserData(){
     location.reload();
 }
 
+function populate_list(json_response)
+{
+    // Get the json response and the list-box element from the document
+    const queries  = json_response['queries'];
+    const list_box = document.querySelector("#list-box");
+    // Clear the list_box
+    list_box.innerHTML = '';
+    // Add the new elements to list-box
+    for (let i = 0;i < queries.length;i++)
+    {
+        const list_item = document.createElement('list-item');
+        list_item.textContent = queries[i];
+        list_box.append(list_item);
+    }
+
+}
 
 let fingerprint=constructFingerPrint();
 console.log(fingerprint);
