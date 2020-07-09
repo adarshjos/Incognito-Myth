@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Service
 public class IncognitoService {
@@ -64,7 +62,7 @@ public class IncognitoService {
         }
     }
 
-
+    @Transactional
     public void deleteEntry(JSONObject dbObj) {
         if(dbObj.has("fingerprint")){
             try{
@@ -72,6 +70,8 @@ public class IncognitoService {
             }catch(Exception e){
                 log.log(Level.SEVERE,"Exception Message ::"+e);
             }
+        }else{
+            log.log(Level.SEVERE,":::FingerPrint missing:::");
         }
     }
 }

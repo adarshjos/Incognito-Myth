@@ -10,7 +10,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
-import javax.transaction.Transactional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +38,7 @@ public class IncognitoController {
         JSONObject dbObj=new JSONObject(data);
         incognitoService.populateDB(dbObj);
     }
-    @Transactional
+
     @MessageMapping("/forgetFP")
     public void forgetFP(String data) throws Exception {
         log.log(Level.INFO,"Forgetting FP:::"+data);
