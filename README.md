@@ -7,8 +7,8 @@
  
 This project is an inspiration from gautamkrishnar's "Nothing Private" (https://github.com/gautamkrishnar/nothing-private). This project uses SpringBoot and MySQL database and also Websocket for communication.
 
-##. Running locally
+## Running locally
 
->>> docker-compose up --build
+run: docker-compose up --build
 
 ![alt-text](https://github.com/adarshjos/Incognito-Myth/blob/master/vid.gif)
